@@ -60,4 +60,4 @@ permissions:
     description: Allows players to use owner commands
     default: false
     children:
-      - core.rank.*
+      - core.rank.admin

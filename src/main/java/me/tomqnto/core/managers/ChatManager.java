@@ -9,13 +9,17 @@ import org.bukkit.event.Listener;
 
 public class ChatManager implements Listener {
 
+    private static PlayerData playerData;
 
+    public ChatManager(PlayerData playerData) {
+        ChatManager.playerData = playerData;
+    }
 
     @EventHandler
     public void onChat(AsyncChatEvent event){
         event.renderer((source, sourceDisplayName, message, viewer) -> {
 
-            Rank sourceRank = PlayerData.getRank(source);
+            Rank sourceRank = playerData.getRank(source);
 
             Component formattedMessage = sourceDisplayName
                     .append(Component.text(" » "))
