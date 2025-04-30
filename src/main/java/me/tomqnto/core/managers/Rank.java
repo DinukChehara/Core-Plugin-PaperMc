@@ -50,7 +50,8 @@ public enum Rank {
 
     public String getPrefix(){
 
-        String prefix = '[' + this.name + ']';
+        ChatColor tagColor = ChatColor.valueOf(this.getTagColor().toString().toUpperCase());
+        String prefix = tagColor + this.name + ChatColor.RESET;
 
         if (this.tagBold && this.italic)
             prefix = "§o" + "§l" + prefix;
@@ -59,18 +60,9 @@ public enum Rank {
         else if (this.italic)
             prefix = "§o" + prefix;
 
-        prefix = prefix + "§r";
+        prefix = "§8[" + prefix + "§8]§r";
 
         return prefix;
-    }
-
-    public String getPrefixColored(){
-
-        String prefix = this.getPrefix();
-        ChatColor color = ChatColor.valueOf(this.getTagColor().toString().toUpperCase());
-
-        return color + prefix + ChatColor.RESET;
-
     }
 
 }

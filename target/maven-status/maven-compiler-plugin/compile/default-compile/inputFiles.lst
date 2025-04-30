@@ -1,7 +1,11 @@
-C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\RemoveRankCommand.java
-C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\SetRankCommand.java
+C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\auth\LoginCommand.java
+C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\auth\RegisterCommand.java
+C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\auth\UnregisterCommand.java
+C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\rank\RemoveRankCommand.java
+C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\rank\SetRankCommand.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\Core.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\listeners\PlayerJoinListener.java
+C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\managers\AuthManager.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\managers\ChatManager.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\managers\CommandActions.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\managers\PlayerData.java

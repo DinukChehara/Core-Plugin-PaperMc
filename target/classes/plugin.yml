@@ -5,23 +5,36 @@ api-version: '1.21'
 authors: [ Tomqnto ]
 
 commands:
+
   setrank:
     usage: /<command> <player>
     description: Sets a player's rank
     aliases: [sr]
+    permission: core.rank.setrank
+    permission-message: You do not have permission to execute this command(core.rank.setrank).
+
   removerank:
     usage: /<command> <player>
     description: Removes a player's rank
     aliases: [rr, dr, delrank]
+    permission: core.rank.removerank
+    permission-message: You do not have permission to execute this command(core.rank.removerank).
 
+  register:
+    usage: /<command> <password> <confirmpassword>
+    description: Registers the player
+
+  login:
+    usage: /<command> <password>
+    description: Let players log-in to the server
 
 permissions:
   core.rank.*:
     description: Allows players to use rank commands
     default: false
     children:
-      - core.rank.setrank
-      - core.rank.removerank
+      - core.rank.setrank: true
+      - core.rank.removerank: true
 
   core.rank.setrank:
     description: Allows players to set another player's rank
@@ -41,23 +54,23 @@ permissions:
     description: Allows players to use helper commands
     default: false
     children:
-      - core.rank.default
+      - core.rank.default: true
 
   core.rank.mod:
     description: Allows players to use mod commands
     default: false
     children:
-      - core.rank.helper
+      - core.rank.helper: true
 
   core.rank.admin:
     description: ALlows players to use admin commands
     default: false
     children:
-      - core.rank.mod
-      - core.rank.*
+      - core.rank.mod: true
+      - core.rank.*: true
 
   core.rank.owner:
     description: Allows players to use owner commands
     default: false
     children:
-      - core.rank.admin
+      - core.rank.*: true

@@ -1,8 +1,12 @@
 me\tomqnto\core\managers\CommandActions.class
 me\tomqnto\core\managers\Rank.class
-me\tomqnto\core\managers\PlayerData.class
+me\tomqnto\core\commands\auth\RegisterCommand.class
 me\tomqnto\core\managers\ChatManager.class
 me\tomqnto\core\Core.class
-me\tomqnto\core\commands\RemoveRankCommand.class
-me\tomqnto\core\commands\SetRankCommand.class
+me\tomqnto\core\commands\auth\UnregisterCommand.class
+me\tomqnto\core\commands\rank\RemoveRankCommand.class
+me\tomqnto\core\managers\AuthManager.class
+me\tomqnto\core\commands\rank\SetRankCommand.class
 me\tomqnto\core\listeners\PlayerJoinListener.class
+me\tomqnto\core\managers\PlayerData.class
+me\tomqnto\core\commands\auth\LoginCommand.class

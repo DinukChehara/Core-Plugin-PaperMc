@@ -1,8 +1,11 @@
 package me.tomqnto.core;
 
+import me.tomqnto.core.commands.auth.LoginCommand;
+import me.tomqnto.core.commands.auth.RegisterCommand;
 import me.tomqnto.core.commands.rank.RemoveRankCommand;
 import me.tomqnto.core.commands.rank.SetRankCommand;
 import me.tomqnto.core.listeners.PlayerJoinListener;
+import me.tomqnto.core.managers.AuthManager;
 import me.tomqnto.core.managers.ChatManager;
 import me.tomqnto.core.managers.CommandActions;
 import me.tomqnto.core.managers.PlayerData;
@@ -19,9 +22,12 @@ public final class Core extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new ChatManager(playerData), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(playerData), this);
+        getServer().getPluginManager().registerEvents(new AuthManager(playerData), this);
 
         getCommand("setrank").setExecutor(new SetRankCommand(commandActions));
         getCommand("removerank").setExecutor(new RemoveRankCommand(commandActions));
+        getCommand("register").setExecutor(new RegisterCommand(playerData));
+        getCommand("login").setExecutor(new LoginCommand(playerData));
     }
 
     public static Core getInstance(){

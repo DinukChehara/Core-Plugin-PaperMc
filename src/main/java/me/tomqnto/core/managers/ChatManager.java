@@ -21,9 +21,7 @@ public class ChatManager implements Listener {
 
             Rank sourceRank = playerData.getRank(source);
 
-            Component formattedMessage = sourceDisplayName
-                    .append(Component.text(" » "))
-                    .append(message);
+
 
             if (sourceRank!=null){
 
@@ -34,10 +32,17 @@ public class ChatManager implements Listener {
                 if  (!(viewer instanceof final Player recipient))
                     return message;
 
+                Component formattedMessage = sourceDisplayName.color(tagColor)
+                        .append(Component.text(" » "))
+                        .append(message).color(chatColor);
+
                 Component rankComponent = Component.text(rankPrefix).color(tagColor);
 
-                return rankComponent.append(Component.space()).append(formattedMessage.color(chatColor));
+                return rankComponent.append(Component.space()).append(formattedMessage);
             } else {
+                Component formattedMessage = sourceDisplayName
+                        .append(Component.text(" » "))
+                        .append(message);
                 return formattedMessage;
             }
             
