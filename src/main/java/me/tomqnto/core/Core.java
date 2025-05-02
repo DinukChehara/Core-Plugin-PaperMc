@@ -2,13 +2,10 @@ package me.tomqnto.core;
 
 import me.tomqnto.core.commands.auth.LoginCommand;
 import me.tomqnto.core.commands.auth.RegisterCommand;
+import me.tomqnto.core.commands.auth.UnregisterCommand;
 import me.tomqnto.core.commands.rank.RemoveRankCommand;
 import me.tomqnto.core.commands.rank.SetRankCommand;
-import me.tomqnto.core.listeners.PlayerJoinListener;
-import me.tomqnto.core.managers.AuthManager;
-import me.tomqnto.core.managers.ChatManager;
-import me.tomqnto.core.managers.CommandActions;
-import me.tomqnto.core.managers.PlayerData;
+import me.tomqnto.core.managers.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Core extends JavaPlugin {
@@ -17,17 +14,19 @@ public final class Core extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        final PlayerData playerData = new PlayerData();
-        final CommandActions commandActions = new CommandActions(playerData);
+        final ConfigManager configManager = new ConfigManager(this);
+        final PlayerManager playerManager = new PlayerManager(configManager);
 
-        getServer().getPluginManager().registerEvents(new ChatManager(playerData), this);
-        getServer().getPluginManager().registerEvents(new PlayerJoinListener(playerData), this);
-        getServer().getPluginManager().registerEvents(new AuthManager(playerData), this);
+        configManager.load();
 
-        getCommand("setrank").setExecutor(new SetRankCommand(commandActions));
-        getCommand("removerank").setExecutor(new RemoveRankCommand(commandActions));
-        getCommand("register").setExecutor(new RegisterCommand(playerData));
-        getCommand("login").setExecutor(new LoginCommand(playerData));
+        getServer().getPluginManager().registerEvents(new ChatManager(playerManager), this);
+        getServer().getPluginManager().registerEvents(new AuthManager(playerManager), this);
+
+        getCommand("setrank").setExecutor(new SetRankCommand(playerManager));
+        getCommand("removerank").setExecutor(new RemoveRankCommand(playerManager));
+        getCommand("register").setExecutor(new RegisterCommand(playerManager));
+        getCommand("login").setExecutor(new LoginCommand(playerManager));
+        getCommand("unregister").setExecutor(new UnregisterCommand(playerManager));
     }
 
     public static Core getInstance(){

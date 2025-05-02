@@ -1,6 +1,6 @@
 package me.tomqnto.core.commands.auth;
 
-import me.tomqnto.core.managers.PlayerData;
+import me.tomqnto.core.managers.PlayerManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,10 +9,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class RegisterCommand implements CommandExecutor {
 
-    private final PlayerData playerData;
+    private final PlayerManager playerManager;
 
-    public RegisterCommand(PlayerData commandActions) {
-        this.playerData = commandActions;
+    public RegisterCommand(PlayerManager playerManager) {
+        this.playerManager = playerManager;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class RegisterCommand implements CommandExecutor {
             return true;
         }
 
-        if (playerData.isRegistered(player)){
+        if (playerManager.isRegistered(player)){
             player.sendRichMessage("<red>You are already registered");
             return true;
         }
@@ -38,8 +38,12 @@ public class RegisterCommand implements CommandExecutor {
             return true;
         }
 
-        playerData.registerPlayer(player, args[0]);
-        playerData.setLoggedIn(player, true);
+        if (args[0].length()<5){
+            player.sendRichMessage("<red>Password must be at least 5 characters long.");
+            return true;
+        }
+
+        playerManager.register(player, args[0]);
         player.sendRichMessage("<bold><green>Successfully registered!");
 
         return true;

@@ -10,19 +10,19 @@ commands:
     usage: /<command> <player>
     description: Sets a player's rank
     aliases: [sr]
-    permission: core.rank.setrank
-    permission-message: You do not have permission to execute this command(core.rank.setrank).
 
   removerank:
     usage: /<command> <player>
     description: Removes a player's rank
     aliases: [rr, dr, delrank]
-    permission: core.rank.removerank
-    permission-message: You do not have permission to execute this command(core.rank.removerank).
 
   register:
     usage: /<command> <password> <confirmpassword>
     description: Registers the player
+
+  unregister:
+    usage: /<command> <player>
+    description: Unregisters the player
 
   login:
     usage: /<command> <password>

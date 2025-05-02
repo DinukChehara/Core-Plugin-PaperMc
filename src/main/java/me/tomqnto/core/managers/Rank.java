@@ -1,6 +1,7 @@
 package me.tomqnto.core.managers;
 
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.ChatColor;
 
 
@@ -9,31 +10,32 @@ public enum Rank {
     OWNER("Owner", NamedTextColor.GOLD, NamedTextColor.YELLOW, true, false, 5),
     ADMIN("Admin", NamedTextColor.DARK_RED, NamedTextColor.RED, true, false, 4),
     MOD("Mod", NamedTextColor.DARK_GREEN, NamedTextColor.GREEN, true, false, 3),
-    HELPER("Helper", NamedTextColor.DARK_BLUE, NamedTextColor.BLUE, true, false, 2),
+    HELPER("Helper", NamedTextColor.DARK_AQUA, NamedTextColor.AQUA, true, false, 2),
+    YOUTUBE("You§ctube", NamedTextColor.WHITE, NamedTextColor.WHITE, true, false, 2),
     DEFAULT("Default", NamedTextColor.GRAY, NamedTextColor.WHITE, false, false, 1);
 
 
-    private final String name;
-    private final NamedTextColor tagColor;
+    private final String displayName;
+    private final NamedTextColor nameColor;
     private final NamedTextColor chatColor;
     private final boolean tagBold, italic;
     private final int level;
 
-    Rank(String name, NamedTextColor tagColor, NamedTextColor chatColor, boolean tagBold, boolean italic, int level) {
-        this.name = name;
-        this.tagColor = tagColor;
+    Rank(String displayName, NamedTextColor nameColor, NamedTextColor chatColor, boolean tagBold, boolean italic, int level) {
+        this.displayName = displayName;
+        this.nameColor = nameColor;
         this.chatColor = chatColor;
         this.tagBold = tagBold;
         this.italic = italic;
         this.level = level;
     }
 
-    public String getName(){
-        return this.name;
+    public String getDisplayName(){
+        return this.displayName;
     }
 
-    public NamedTextColor getTagColor() {
-        return this.tagColor;
+    public NamedTextColor getNameColor() {
+        return this.nameColor;
     }
 
     public NamedTextColor getChatColor() {
@@ -50,8 +52,8 @@ public enum Rank {
 
     public String getPrefix(){
 
-        ChatColor tagColor = ChatColor.valueOf(this.getTagColor().toString().toUpperCase());
-        String prefix = tagColor + this.name + ChatColor.RESET;
+        ChatColor tagColor = ChatColor.valueOf(this.getNameColor().toString().toUpperCase());
+        String prefix = tagColor + this.displayName + ChatColor.RESET;
 
         if (this.tagBold && this.italic)
             prefix = "§o" + "§l" + prefix;

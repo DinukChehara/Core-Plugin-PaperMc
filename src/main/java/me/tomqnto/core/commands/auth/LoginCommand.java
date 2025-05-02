@@ -1,6 +1,6 @@
 package me.tomqnto.core.commands.auth;
 
-import me.tomqnto.core.managers.PlayerData;
+import me.tomqnto.core.managers.PlayerManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,10 +9,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class LoginCommand implements CommandExecutor {
 
-    private final PlayerData playerData;
+    private final PlayerManager playerManager;
 
-    public LoginCommand(PlayerData playerData) {
-        this.playerData = playerData;
+    public LoginCommand(PlayerManager playerManager) {
+        this.playerManager = playerManager;
     }
 
     @Override
@@ -23,23 +23,27 @@ public class LoginCommand implements CommandExecutor {
             sender.sendMessage("Only players can execute this command");
             return true;
         }
-        if (playerData.isLoggedIn(player)){
+
+        if  (!(playerManager.isRegistered(player))){
+            player.sendRichMessage("<red>You are not registered!<br><yellow>use /register <password> <password> to register.");
+        }
+
+        if (playerManager.isLoggedIn(player)){
             player.sendRichMessage("<red>You are already logged-in");
             return true;
         }
 
         if (!(args.length>=1)){
-            player.sendRichMessage("<red>Missing arguments<br><red>Usage: /register <password>");
+            player.sendRichMessage("<red>Missing arguments<br><red>Usage: /login <password>");
             return true;
         }
 
-        if (!(args[0]).equals(playerData.getPassword(player))){
-            player.sendRichMessage("<red>Password inccorect.");
+        if (!(args[0]).equals(playerManager.getPassword(player))){
+            player.sendRichMessage("<red>Password incorrect.");
             return true;
         }
 
-        playerData.addLoginExpiration(player);
-        playerData.setLoggedIn(player, true);
+        playerManager.setLoggedIn(player, true);
         player.sendRichMessage("<bold><green>Successfully logged-in to the server.!");
 
         return true;

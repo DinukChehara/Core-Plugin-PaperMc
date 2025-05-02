@@ -8,70 +8,36 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import java.sql.Time;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 public class AuthManager implements Listener {
 
-    private final PlayerData playerData;
+    private final PlayerManager playerManager;
 
-    public AuthManager(PlayerData playerData) {
-        this.playerData = playerData;
+    public AuthManager(PlayerManager playerManager) {
+        this.playerManager = playerManager;
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerJoin(PlayerJoinEvent event){
-
-        if (!(playerData.isRegistered(event.getPlayer()))){
-
-            event.getPlayer().sendRichMessage("<red><bold>You are not registered</red><br><yellow>Use /register <password> <password></yellow>");
-            playerData.setLoggedIn(event.getPlayer(), false);
-
-        } else if (playerData.isLoginExpired(event.getPlayer())){
-
-                event.getPlayer().sendRichMessage("<red><bold>You are not logged-in</red><br><yellow>Use /login <password></yellow>");
-                playerData.setLoggedIn(event.getPlayer(), false);
-
-        }else{
-
-            Instant expirationInstant = playerData.getLoginExpiration(event.getPlayer());
-            Duration duration = Duration.between(Instant.now(), expirationInstant);
-
-            LocalTime expirationTime = LocalTime.now().plus(duration);
-            String expirationTimeString = expirationTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-
-            event.getPlayer().sendRichMessage("<green>Login session continued<br><green>Your login will expire at:<yellow> " + expirationTimeString);
+        playerManager.setLoggedIn(event.getPlayer(), false);
+        if (!(playerManager.isRegistered(event.getPlayer()))){
+            event.getPlayer().sendRichMessage("<red><bold>You are not registered!</red><br><yellow>Use /register <password> <password></yellow>");
+        } else{
+            event.getPlayer().sendRichMessage("<red>You are not logged-in!<br><red>Use /login <password>");
         }
     }
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event){
         Player player = event.getPlayer();
-
-        if (!(playerData.isRegistered(player))) {
-            event.setCancelled(true);
-
-        } else if (!(playerData.isLoggedIn(player))){
-            event.setCancelled(true);
+        if(event.hasChangedPosition()){
+            if (!(playerManager.isRegistered(player))) {
+                event.setCancelled(true);
+            } else if (!(playerManager.isLoggedIn(player))){
+                event.setCancelled(true);
+            }
         }
 
-    }
-
-    @EventHandler
-    public void onChatEvent(AsyncChatEvent event){
-
-        if (!(playerData.isRegistered(event.getPlayer()))){
-            event.setCancelled(true);
-            event.getPlayer().sendRichMessage("<red>You need to be registered to do this.");
-
-        } else if (!(playerData.isLoggedIn(event.getPlayer()))){
-            event.setCancelled(true);
-            event.getPlayer().sendRichMessage("<red>You need to login to do this.");
-
-        }
     }
 
 }
