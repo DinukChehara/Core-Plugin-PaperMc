@@ -29,7 +29,7 @@ public class LoginCommand implements CommandExecutor {
         }
 
         if (playerManager.isLoggedIn(player)){
-            player.sendRichMessage("<red>You are already logged-in");
+            player.sendRichMessage("<gray>You are already logged-in");
             return true;
         }
 

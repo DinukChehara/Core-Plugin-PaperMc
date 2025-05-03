@@ -28,6 +28,10 @@ commands:
     usage: /<command> <password>
     description: Let players log-in to the server
 
+  setstate:
+    usage: /<command> <state>
+    description: Changes the server state
+
 permissions:
   core.rank.*:
     description: Allows players to use rank commands

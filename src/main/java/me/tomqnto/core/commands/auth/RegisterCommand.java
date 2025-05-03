@@ -24,7 +24,7 @@ public class RegisterCommand implements CommandExecutor {
         }
 
         if (playerManager.isRegistered(player)){
-            player.sendRichMessage("<red>You are already registered");
+            player.sendRichMessage("<gray>You are already registered");
             return true;
         }
 

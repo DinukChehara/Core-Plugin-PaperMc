@@ -4,9 +4,13 @@ me\tomqnto\core\managers\ChatManager.class
 me\tomqnto\core\Core.class
 me\tomqnto\core\commands\auth\UnregisterCommand.class
 me\tomqnto\core\commands\rank\RemoveRankCommand.class
+me\tomqnto\core\commands\serverState\SetServerStateCommand.class
 me\tomqnto\core\managers\AuthManager.class
 me\tomqnto\core\commands\rank\SetRankCommand.class
+me\tomqnto\core\listeners\PlayerJoinListener.class
+me\tomqnto\core\managers\ServerManager.class
 me\tomqnto\core\managers\ConfigManager.class
 me\tomqnto\core\managers\PlayerManager.class
 me\tomqnto\core\managers\PermissionManager.class
+me\tomqnto\core\managers\ServerState.class
 me\tomqnto\core\commands\auth\LoginCommand.class

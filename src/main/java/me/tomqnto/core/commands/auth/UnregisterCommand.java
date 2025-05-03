@@ -42,7 +42,7 @@ public class UnregisterCommand implements CommandExecutor {
 
         if (!(playerManager.isRegistered(player))){
             if (sender instanceof Player){
-                sender.sendMessage("<red>This player is not registered.");
+                sender.sendMessage("<gray>This player is not registered.");
             } else
                 sender.sendMessage("This player is not registered.");
             return true;

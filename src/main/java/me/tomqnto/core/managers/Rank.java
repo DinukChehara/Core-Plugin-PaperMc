@@ -11,7 +11,7 @@ public enum Rank {
     ADMIN("Admin", NamedTextColor.DARK_RED, NamedTextColor.RED, true, false, 4),
     MOD("Mod", NamedTextColor.DARK_GREEN, NamedTextColor.GREEN, true, false, 3),
     HELPER("Helper", NamedTextColor.DARK_AQUA, NamedTextColor.AQUA, true, false, 2),
-    YOUTUBE("You§ctube", NamedTextColor.WHITE, NamedTextColor.WHITE, true, false, 2),
+    YOUTUBE("You§ctube", NamedTextColor.WHITE, NamedTextColor.WHITE, true, false, 1),
     DEFAULT("Default", NamedTextColor.GRAY, NamedTextColor.WHITE, false, false, 1);
 
 
