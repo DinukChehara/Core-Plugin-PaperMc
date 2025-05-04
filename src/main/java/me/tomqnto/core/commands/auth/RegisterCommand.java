@@ -1,5 +1,6 @@
 package me.tomqnto.core.commands.auth;
 
+import me.tomqnto.core.Utils.PlayerMessage;
 import me.tomqnto.core.managers.PlayerManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,7 +25,7 @@ public class RegisterCommand implements CommandExecutor {
         }
 
         if (playerManager.isRegistered(player)){
-            player.sendRichMessage("<gray>You are already registered");
+            PlayerMessage.alreadyRegistered(player);
             return true;
         }
 

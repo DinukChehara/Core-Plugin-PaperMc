@@ -1,26 +1,32 @@
 package me.tomqnto.core.managers;
 
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public enum ServerState {
 
-    DEVELOPMENT("&cServer under Development", 4, true),
-    MAINTENANCE("&cServer under maintenance", 3, true),
-    PUBLIC("&aServer public | Join Now!", 1, true);
+    MAINTENANCE("<red>Server under maintenance", "§4Server under maintenance §7| §6Only staff can join", 3, true),
+    PUBLIC("<green>Server public | Join Now!", "§aServer Online! §7| §eJoin Now!", 1, true);
 
 
-    private final String message;
+    private final String kickMessage;
+    private final String motd;
     private final int rankLevel;
     private final boolean includeHigherLevels;
 
-    ServerState(String message, int rankLevel, boolean includeHigherLevels) {
-        this.message = message;
+    ServerState(String kickMessage, String motd, int rankLevel, boolean includeHigherLevels) {
+        this.kickMessage = kickMessage;
+        this.motd = motd;
         this.rankLevel = rankLevel;
         this.includeHigherLevels = includeHigherLevels;
     }
 
-    public String getMessage() {
-        return ChatColor.translateAlternateColorCodes('&', message);
+    public Component getKickMessage() {
+        return MiniMessage.miniMessage().deserialize(kickMessage);
+    }
+
+    public String getMotd() {
+        return motd;
     }
 
     public int getRankLevel() {
@@ -30,4 +36,5 @@ public enum ServerState {
     public boolean isIncludeHigherLevels() {
         return includeHigherLevels;
     }
+
 }

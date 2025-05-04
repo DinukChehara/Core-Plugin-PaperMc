@@ -6,9 +6,12 @@ import me.tomqnto.core.commands.auth.UnregisterCommand;
 import me.tomqnto.core.commands.rank.RemoveRankCommand;
 import me.tomqnto.core.commands.rank.SetRankCommand;
 import me.tomqnto.core.commands.serverState.SetServerStateCommand;
-import me.tomqnto.core.listeners.PlayerJoinListener;
+import me.tomqnto.core.listeners.PlayerLoginListener;
 import me.tomqnto.core.managers.*;
+import me.tomqnto.core.packets.Packets;
 import org.bukkit.plugin.java.JavaPlugin;
+import com.comphenix.protocol.ProtocolManager;
+import com.comphenix.protocol.ProtocolLibrary;
 
 public final class Core extends JavaPlugin {
 
@@ -22,9 +25,15 @@ public final class Core extends JavaPlugin {
 
         configManager.load();
 
+        if (serverManager.getState() == null)
+            serverManager.setState(ServerState.PUBLIC);
+        else {
+            serverManager.setMotd(serverManager.getState().getMotd());
+        }
+
         getServer().getPluginManager().registerEvents(new ChatManager(playerManager), this);
         getServer().getPluginManager().registerEvents(new AuthManager(playerManager), this);
-        getServer().getPluginManager().registerEvents(new PlayerJoinListener(playerManager, serverManager), this);
+        getServer().getPluginManager().registerEvents(new PlayerLoginListener(playerManager, serverManager), this);
 
         getCommand("setrank").setExecutor(new SetRankCommand(playerManager));
         getCommand("removerank").setExecutor(new RemoveRankCommand(playerManager));

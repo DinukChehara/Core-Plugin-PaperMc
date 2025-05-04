@@ -1,5 +1,6 @@
 package me.tomqnto.core.commands.auth;
 
+import me.tomqnto.core.Utils.PlayerMessage;
 import me.tomqnto.core.managers.PlayerManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,12 +25,13 @@ public class LoginCommand implements CommandExecutor {
             return true;
         }
 
-        if  (!(playerManager.isRegistered(player))){
-            player.sendRichMessage("<red>You are not registered!<br><yellow>use /register <password> <password> to register.");
+        if  (!playerManager.isRegistered(player)){
+            PlayerMessage.notRegistered(player, true, true);
+            return true;
         }
 
         if (playerManager.isLoggedIn(player)){
-            player.sendRichMessage("<gray>You are already logged-in");
+            PlayerMessage.alreadyLoggedIn(player);
             return true;
         }
 

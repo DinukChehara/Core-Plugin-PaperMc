@@ -1,9 +1,9 @@
 package me.tomqnto.core.managers;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
+import me.tomqnto.core.Utils.PlayerMessage;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,11 +23,11 @@ public class ChatManager implements Listener {
 
         if (!(playerManager.isRegistered(event.getPlayer()))){
             event.setCancelled(true);
-            event.getPlayer().sendRichMessage("<red>You need to be registered to do this.");
+            PlayerMessage.notRegistered(event.getPlayer(), true, true);
 
         } else if (!(playerManager.isLoggedIn(event.getPlayer()))){
             event.setCancelled(true);
-            event.getPlayer().sendRichMessage("<red>You need to login to do this.");
+            PlayerMessage.notLoggedIn(event.getPlayer(), true, true);
         }
 
         // Chat rendering

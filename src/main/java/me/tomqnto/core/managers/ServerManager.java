@@ -2,11 +2,7 @@ package me.tomqnto.core.managers;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 
 public class ServerManager implements Listener {
 
@@ -17,13 +13,26 @@ public class ServerManager implements Listener {
     }
 
     public void setState(ServerState state){
-        Bukkit.getServer().setMotd(state.getMessage());
+        setMotd(state.getMotd());
         configManager.getConfig().set("server.state", state.name());
         configManager.save();
     }
 
     public ServerState getState(){
+        try{
         return ServerState.valueOf(configManager.getConfig().getString("server.state"));
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+
+    public boolean hasState(){
+        return configManager.getConfig().getString("server.state") != null;
+    }
+
+    public void setMotd(String motd){
+        Bukkit.getServer().setMotd(motd);
     }
 
 

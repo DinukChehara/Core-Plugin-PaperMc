@@ -1,12 +1,14 @@
 package me.tomqnto.core.managers;
 
-import io.papermc.paper.event.player.AsyncChatEvent;
+import me.tomqnto.core.Utils.PlayerMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 
 public class AuthManager implements Listener {
@@ -19,12 +21,17 @@ public class AuthManager implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerJoin(PlayerJoinEvent event){
-        playerManager.setLoggedIn(event.getPlayer(), false);
         if (!(playerManager.isRegistered(event.getPlayer()))){
-            event.getPlayer().sendRichMessage("<red><bold>You are not registered!</red><br><yellow>Use /register <password> <password></yellow>");
+            playerManager.setLoggedIn(event.getPlayer(), false);
+            PlayerMessage.notRegistered(event.getPlayer(), true, true);
         } else{
-            event.getPlayer().sendRichMessage("<red>You are not logged-in!<br><red>Use /login <password>");
+            PlayerMessage.notLoggedIn(event.getPlayer(), true, true);
         }
+    }
+
+    @EventHandler
+    public void onPlayerLeave(PlayerQuitEvent event){
+        playerManager.setLoggedIn(event.getPlayer(), false);
     }
 
     @EventHandler
@@ -36,6 +43,22 @@ public class AuthManager implements Listener {
             } else if (!(playerManager.isLoggedIn(player))){
                 event.setCancelled(true);
             }
+        }
+
+    }
+
+    @EventHandler
+    public void onPlayerRunCommand(PlayerCommandPreprocessEvent event){
+        Player player = event.getPlayer();
+        String command = event.getMessage();
+
+        if (!playerManager.isRegistered(player) && !(command.startsWith("/register") || command.startsWith("/login"))){
+            event.setCancelled(true);
+            PlayerMessage.notRegistered(player, true, true);
+
+        } else if (!playerManager.isLoggedIn(player) && !(command.startsWith("/register") || command.startsWith("/login"))) {
+            event.setCancelled(true);
+            PlayerMessage.notLoggedIn(player, true, true);
         }
 
     }

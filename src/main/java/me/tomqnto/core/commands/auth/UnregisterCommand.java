@@ -2,6 +2,7 @@ package me.tomqnto.core.commands.auth;
 
 import me.tomqnto.core.managers.PlayerManager;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,20 +30,11 @@ public class UnregisterCommand implements CommandExecutor {
             return true;
         }
 
-        if (Bukkit.getPlayer(args[0])==null){
-            if (sender instanceof Player)
-                sender.sendRichMessage("<red>Could not find " + args[0]);
-            else{
-                sender.sendMessage("Could not find " + args[0]);
-            }
-
-        }
-
-        Player player = Bukkit.getPlayer(args[0]);
+        OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
 
         if (!(playerManager.isRegistered(player))){
             if (sender instanceof Player){
-                sender.sendMessage("<gray>This player is not registered.");
+                sender.sendRichMessage("<gray>This player is not registered.");
             } else
                 sender.sendMessage("This player is not registered.");
             return true;
@@ -50,7 +42,8 @@ public class UnregisterCommand implements CommandExecutor {
 
         playerManager.setLoggedIn(player, false);
         playerManager.unregister(player);
-        player.sendRichMessage("<red><bold>You are not registered!</red><br><yellow>Use /register <password> <password></yellow>");
+        if (player.isOnline())
+            ((Player) player).sendRichMessage("<red><bold>You are not registered!</red><br><yellow>Use /register <password> <password></yellow>");
 
         if (sender instanceof Player)
             sender.sendRichMessage("<green>Successfully unregistered " + args[0]);
