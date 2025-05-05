@@ -36,4 +36,11 @@ public class PlayerMessage {
         failAction(player, "<gray>You are already logged in");
     }
 
+    public static void addressChanged(Player player){
+        player.sendRichMessage("<red>Your previous login location has changed");
+    }
+
+    public static void loginExpired(Player player){
+        player.sendRichMessage("<red>Your previous login session has expired");
+    }
 }

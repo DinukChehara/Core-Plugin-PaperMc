@@ -3,15 +3,12 @@ package me.tomqnto.core;
 import me.tomqnto.core.commands.auth.LoginCommand;
 import me.tomqnto.core.commands.auth.RegisterCommand;
 import me.tomqnto.core.commands.auth.UnregisterCommand;
-import me.tomqnto.core.commands.rank.RemoveRankCommand;
+import me.tomqnto.core.commands.rank.ResetRank;
 import me.tomqnto.core.commands.rank.SetRankCommand;
 import me.tomqnto.core.commands.serverState.SetServerStateCommand;
 import me.tomqnto.core.listeners.PlayerLoginListener;
 import me.tomqnto.core.managers.*;
-import me.tomqnto.core.packets.Packets;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.ProtocolLibrary;
 
 public final class Core extends JavaPlugin {
 
@@ -36,7 +33,7 @@ public final class Core extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerLoginListener(playerManager, serverManager), this);
 
         getCommand("setrank").setExecutor(new SetRankCommand(playerManager));
-        getCommand("removerank").setExecutor(new RemoveRankCommand(playerManager));
+        getCommand("resetrank").setExecutor(new ResetRank(playerManager));
         getCommand("register").setExecutor(new RegisterCommand(playerManager));
         getCommand("login").setExecutor(new LoginCommand(playerManager));
         getCommand("unregister").setExecutor(new UnregisterCommand(playerManager));

@@ -1,5 +1,6 @@
 package me.tomqnto.core.commands.auth;
 
+import me.tomqnto.core.Utils.PlayerMessage;
 import me.tomqnto.core.managers.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -43,7 +44,7 @@ public class UnregisterCommand implements CommandExecutor {
         playerManager.setLoggedIn(player, false);
         playerManager.unregister(player);
         if (player.isOnline())
-            ((Player) player).sendRichMessage("<red><bold>You are not registered!</red><br><yellow>Use /register <password> <password></yellow>");
+            PlayerMessage.notRegistered((Player) player, true, true);
 
         if (sender instanceof Player)
             sender.sendRichMessage("<green>Successfully unregistered " + args[0]);

@@ -12,11 +12,11 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class RemoveRankCommand implements CommandExecutor {
+public class ResetRank implements CommandExecutor {
 
     private final PlayerManager playerManager;
 
-    public RemoveRankCommand(PlayerManager playerManager) {
+    public ResetRank(PlayerManager playerManager) {
         this.playerManager = playerManager;
     }
 
@@ -37,7 +37,7 @@ public class RemoveRankCommand implements CommandExecutor {
 
             String prefixBefore = playerManager.getRank(player).getPrefix();
             prefixBefore = prefixBefore + ChatColor.RESET;
-            String change = prefixBefore + " → " + "None";
+            String change = prefixBefore + " → " + Rank.DEFAULT.getPrefix();
             if (sender instanceof Player senderPlayer){
 
                 int senderLevel = playerManager.getRank(senderPlayer).getLevel();
@@ -45,9 +45,9 @@ public class RemoveRankCommand implements CommandExecutor {
 
                 if (senderPlayer.isOp()){
                     playerManager.setRank(player, Rank.DEFAULT);
-                    senderPlayer.sendMessage("Removed " + player.getName() + "'s rank: " + change);
+                    senderPlayer.sendMessage("Reset " + player.getName() + "'s rank: " + change);
                     if (player.isOnline()){
-                        ((Player) player).sendMessage("Removed your rank: " + change);
+                        ((Player) player).sendMessage("Reset your rank: " + change);
                     }
                 } else if (senderLevel <= targetLevel){
                     senderPlayer.sendMessage("You do not have permission to do this.");
@@ -56,9 +56,9 @@ public class RemoveRankCommand implements CommandExecutor {
             } else if (sender instanceof ConsoleCommandSender consoleCommandSender){
 
                 playerManager.setRank(player, Rank.DEFAULT);
-                consoleCommandSender.sendMessage("Removed " + player.getName() + "'s rank: " + change);
+                consoleCommandSender.sendMessage("Reset " + player.getName() + "'s rank: " + change);
                 if (player.isOnline()){
-                    ((Player) player).sendMessage("Removed your rank: " + change);
+                    ((Player) player).sendMessage("Reset your rank: " + change);
                 }
 
             }

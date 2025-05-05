@@ -1,7 +1,7 @@
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\auth\LoginCommand.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\auth\RegisterCommand.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\auth\UnregisterCommand.java
-C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\rank\RemoveRankCommand.java
+C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\rank\ResetRank.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\rank\SetRankCommand.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\serverState\SetServerStateCommand.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\Core.java

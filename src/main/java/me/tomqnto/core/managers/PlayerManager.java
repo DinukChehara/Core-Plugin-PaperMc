@@ -1,6 +1,10 @@
 package me.tomqnto.core.managers;
 
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
+
+import java.time.Duration;
+import java.time.Instant;
 
 public class PlayerManager {
 
@@ -32,9 +36,12 @@ public class PlayerManager {
     }
 
 
-    public void register(OfflinePlayer player, String password){
+    public void register(Player player, String password){
         configManager.getConfig().set(getConfigPath(player, "password"), password);
+        setExpiration(player);
+        setPlayerAddress(player);
         setLoggedIn(player, true);
+        configManager.save();
     }
 
     public void unregister(OfflinePlayer player){
@@ -58,6 +65,32 @@ public class PlayerManager {
     public String getPassword(OfflinePlayer player){
         return configManager.getConfig().getString(getConfigPath(player, "password"));
     }
-    
+
+    public void setPlayerAddress(Player player){
+        configManager.getConfig().set(getConfigPath(player, "address"),
+                player.getAddress().getAddress().toString());
+        configManager.save();
+    }
+
+    public String getPlayerAddress(OfflinePlayer player){
+        return configManager.getConfig().getString(getConfigPath(player, "address"));
+    }
+
+    public boolean hasAddressChanged(Player player){
+        return !getPlayerAddress(player).equals(player.getAddress().getAddress().toString());
+    }
+
+    public void setExpiration(OfflinePlayer player){
+        configManager.getConfig().set(getConfigPath(player, "expiration-time"), Instant.now().plus(Duration.ofMinutes(10)).toString());
+        configManager.save();
+    }
+
+    public String getExpiration(OfflinePlayer player){
+        return configManager.getConfig().getString(getConfigPath(player, "expiration-time"));
+    }
+
+    public boolean hasLoginExpired(OfflinePlayer player){
+        return Instant.now().toString().equals(getExpiration(player));
+    }
 
 }

@@ -46,7 +46,10 @@ public class LoginCommand implements CommandExecutor {
         }
 
         playerManager.setLoggedIn(player, true);
-        player.sendRichMessage("<bold><green>Successfully logged-in to the server.!");
+        player.sendRichMessage("<green>Successfully logged-in to the server!");
+        playerManager.setExpiration(player);
+        playerManager.setPlayerAddress(player);
+        playerManager.setLoggedIn(player, true);
 
         return true;
     }

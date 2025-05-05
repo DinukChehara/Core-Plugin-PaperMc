@@ -45,7 +45,7 @@ public class RegisterCommand implements CommandExecutor {
         }
 
         playerManager.register(player, args[0]);
-        player.sendRichMessage("<bold><green>Successfully registered!");
+        player.sendRichMessage("<green>Successfully registered!");
 
         return true;
     }

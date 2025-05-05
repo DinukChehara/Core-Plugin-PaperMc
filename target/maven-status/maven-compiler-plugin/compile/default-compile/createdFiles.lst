@@ -5,8 +5,8 @@ me\tomqnto\core\managers\ChatManager.class
 me\tomqnto\core\Core.class
 me\tomqnto\core\packets\Packets.class
 me\tomqnto\core\commands\auth\UnregisterCommand.class
+me\tomqnto\core\commands\rank\ResetRank.class
 me\tomqnto\core\listeners\PlayerLoginListener.class
-me\tomqnto\core\commands\rank\RemoveRankCommand.class
 me\tomqnto\core\commands\serverState\SetServerStateCommand.class
 me\tomqnto\core\managers\AuthManager.class
 me\tomqnto\core\commands\rank\SetRankCommand.class

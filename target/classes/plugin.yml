@@ -12,10 +12,10 @@ commands:
     description: Sets a player's rank
     aliases: [sr]
 
-  removerank:
+  resetrank:
     usage: /<command> <player>
     description: Removes a player's rank
-    aliases: [rr, dr, delrank]
+    aliases: [rr]
 
   register:
     usage: /<command> <password> <confirmpassword>
