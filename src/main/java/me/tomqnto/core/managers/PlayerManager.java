@@ -21,6 +21,7 @@ public class PlayerManager {
     public void setRank(OfflinePlayer player, Rank rank){
         configManager.getConfig().set(getConfigPath(player, "rank"), rank.name());
         configManager.save();
+
     }
 
     public Rank getRank(OfflinePlayer player){
@@ -57,8 +58,8 @@ public class PlayerManager {
         return configManager.getConfig().getBoolean(getConfigPath(player, "is-logged-in"));
     }
 
-    public void setLoggedIn(OfflinePlayer player, boolean l){
-        configManager.getConfig().set(getConfigPath(player, "is-logged-in"), l);
+    public void setLoggedIn(OfflinePlayer player, boolean login){
+        configManager.getConfig().set(getConfigPath(player, "is-logged-in"), login);
         configManager.save();
     }
 
@@ -81,16 +82,16 @@ public class PlayerManager {
     }
 
     public void setExpiration(OfflinePlayer player){
-        configManager.getConfig().set(getConfigPath(player, "expiration-time"), Instant.now().plus(Duration.ofMinutes(10)).toString());
+        configManager.getConfig().set(getConfigPath(player, "login-expiration"), Instant.now().plus(Duration.ofMinutes(10)).toString());
         configManager.save();
     }
 
     public String getExpiration(OfflinePlayer player){
-        return configManager.getConfig().getString(getConfigPath(player, "expiration-time"));
+        return configManager.getConfig().getString(getConfigPath(player, "login-expiration"));
     }
 
     public boolean hasLoginExpired(OfflinePlayer player){
-        return Instant.now().toString().equals(getExpiration(player));
+        return Instant.now().isAfter(Instant.parse(getExpiration(player)));
     }
 
 }

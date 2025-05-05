@@ -3,7 +3,6 @@ version: '1.0-SNAPSHOT'
 main: me.tomqnto.core.Core
 api-version: '1.21'
 authors: [ Tomqnto ]
-depend: [ProtocolLib]
 
 commands:
 
@@ -34,48 +33,64 @@ commands:
     description: Changes the server state
 
 permissions:
-  core.rank.*:
+
+  core.auth.command.register:
+    description: Allows players to use the register command
+    default: false
+
+  core.auth.command.login:
+    description: Allows players to use the login command
+    default: false
+
+  core.rank.command.*:
     description: Allows players to use rank commands
     default: false
     children:
-      - core.rank.setrank: true
-      - core.rank.removerank: true
+      - core.rank.command.setrank
+      - core.rank.command.removerank
 
-  core.rank.setrank:
+  core.rank.command.setrank:
     description: Allows players to set another player's rank
     default: false
 
-  core.rank.removerank:
+  core.rank.command.removerank:
     description: Allows players to remove another player's rank
     default: false
 
-  core.rank.default:
+  core.group.default:
     description: Allows players to use default commands
     default: true
     children:
-      -
+      - core.auth.command.register
+      - core.auth.command.login
 
-  core.rank.helper:
+  core.group.youtube:
+    description: Allows players to use youtuber commands
+    default: false
+    children:
+      - core.group.default
+
+  core.group.helper:
     description: Allows players to use helper commands
     default: false
     children:
-      - core.rank.default: true
+      - core.group.default
 
-  core.rank.mod:
+  core.group.mod:
     description: Allows players to use mod commands
     default: false
     children:
-      - core.rank.helper: true
+      - core.group.helper
 
-  core.rank.admin:
+  core.group.admin:
     description: ALlows players to use admin commands
     default: false
     children:
-      - core.rank.mod: true
-      - core.rank.*: true
+      - core.group.mod
+      - core.rank.command.*
 
-  core.rank.owner:
+  core.group.owner:
     description: Allows players to use owner commands
     default: false
     children:
-      - core.rank.*: true
+      - core.*

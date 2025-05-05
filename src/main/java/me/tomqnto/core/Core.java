@@ -17,8 +17,9 @@ public final class Core extends JavaPlugin {
     public void onEnable() {
 
         final ConfigManager configManager = new ConfigManager(this);
-        final PlayerManager playerManager = new PlayerManager(configManager);
         final ServerManager serverManager = new ServerManager(configManager);
+        final PermissionManager permissionManager = new PermissionManager();
+        final PlayerManager playerManager = new PlayerManager(configManager);
 
         configManager.load();
 

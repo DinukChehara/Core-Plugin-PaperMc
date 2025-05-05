@@ -28,19 +28,25 @@ public class AuthManager implements Listener {
 
         } else if (playerManager.getPlayerAddress(event.getPlayer())!=null && playerManager.hasAddressChanged(event.getPlayer())){
             PlayerMessage.addressChanged(event.getPlayer());
-            playerManager.setLoggedIn(event.getPlayer(), false);
             PlayerMessage.notLoggedIn(event.getPlayer(), true, true);
             event.getPlayer().sendRichMessage(playerManager.getPlayerAddress(event.getPlayer()) + " now: " + event.getPlayer().getAddress().toString());
 
         } else if (playerManager.getExpiration(event.getPlayer())!=null && playerManager.hasLoginExpired(event.getPlayer())) {
             PlayerMessage.loginExpired(event.getPlayer());
-            playerManager.setLoggedIn(event.getPlayer(), false);
             PlayerMessage.notLoggedIn(event.getPlayer(), true, true);
         } else{
             playerManager.setLoggedIn(event.getPlayer(), true);
             event.getPlayer().sendRichMessage("<green>Login session continued");
         }
 
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event){
+        if (playerManager.getPlayerAddress(event.getPlayer())!=null && playerManager.hasAddressChanged(event.getPlayer()))
+            playerManager.setLoggedIn(event.getPlayer(), false);
+        else if (playerManager.getExpiration(event.getPlayer())!=null && playerManager.hasLoginExpired(event.getPlayer()))
+            playerManager.setLoggedIn(event.getPlayer(), false);
     }
 
     @EventHandler
