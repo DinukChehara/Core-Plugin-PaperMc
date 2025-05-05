@@ -10,6 +10,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Date;
+
 
 public class AuthManager implements Listener {
 
@@ -36,7 +42,9 @@ public class AuthManager implements Listener {
             PlayerMessage.notLoggedIn(event.getPlayer(), true, true);
         } else{
             playerManager.setLoggedIn(event.getPlayer(), true);
-            event.getPlayer().sendRichMessage("<green>Login session continued");
+            Duration duration = Duration.between(Instant.now(), Instant.parse(playerManager.getExpiration(event.getPlayer())));
+            String durationString = String.format("%01dh %02dm %02ds", duration.toSeconds()/3600, (duration.toSeconds()%3600)/60, duration.toSeconds()%60);
+            event.getPlayer().sendRichMessage("<green>Login session continued. It will expire in <yellow>" + durationString);
         }
 
     }
