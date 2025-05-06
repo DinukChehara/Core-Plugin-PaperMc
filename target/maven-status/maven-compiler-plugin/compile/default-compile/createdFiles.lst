@@ -1,6 +1,7 @@
 me\tomqnto\core\managers\Rank.class
 me\tomqnto\core\Utils\PlayerMessage.class
 me\tomqnto\core\commands\auth\RegisterCommand.class
+me\tomqnto\core\managers\TabManager.class
 me\tomqnto\core\managers\ChatManager.class
 me\tomqnto\core\Core.class
 me\tomqnto\core\packets\Packets.class
