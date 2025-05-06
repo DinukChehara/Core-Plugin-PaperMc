@@ -28,7 +28,7 @@ public class TabManager implements Runnable{
             String header = "Hello " + player.getName();
             String footer = "<br><green>Have a nice time!";
 
-            if (x==header.length())
+            if (x>=header.length())
                 x=0;
 
             String animatedHeader = header.substring(0, x) + "<white>" + header.charAt(x) + "</white>" + header.substring(x + 1);

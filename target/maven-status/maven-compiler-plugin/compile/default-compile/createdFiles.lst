@@ -4,7 +4,6 @@ me\tomqnto\core\commands\auth\RegisterCommand.class
 me\tomqnto\core\managers\TabManager.class
 me\tomqnto\core\managers\ChatManager.class
 me\tomqnto\core\Core.class
-me\tomqnto\core\packets\Packets.class
 me\tomqnto\core\commands\auth\UnregisterCommand.class
 me\tomqnto\core\commands\rank\ResetRank.class
 me\tomqnto\core\listeners\PlayerLoginListener.class
@@ -14,7 +13,8 @@ me\tomqnto\core\commands\rank\SetRankCommand.class
 me\tomqnto\core\managers\ServerManager.class
 me\tomqnto\core\managers\ConfigManager.class
 me\tomqnto\core\managers\PlayerManager.class
-me\tomqnto\core\packets\Packets$1.class
 me\tomqnto\core\managers\PermissionManager.class
 me\tomqnto\core\managers\ServerState.class
+me\tomqnto\core\packets\ProtocolLibHook$1.class
 me\tomqnto\core\commands\auth\LoginCommand.class
+me\tomqnto\core\packets\ProtocolLibHook.class
