@@ -55,8 +55,8 @@ public class TabManager implements Runnable{
 
             if (x>=header.length())
                 x=0;
-
-            String animatedHeader = header.substring(0, x) + "<color:#ffffaa>" + header.charAt(x) + "</color>" + header.substring(x + 1);
+            
+            String animatedHeader = header.substring(0, x) + "<white>" + header.charAt(x) + "</white>" + header.substring(x + 1);
             animatedHeader = "<bold><yellow>" + animatedHeader + "<br>";
 
             player.setPlayerListName(rankPrefix + " " + coloredPlayerName);

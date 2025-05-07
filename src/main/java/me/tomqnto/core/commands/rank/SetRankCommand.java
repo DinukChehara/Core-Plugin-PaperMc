@@ -51,7 +51,7 @@ public class SetRankCommand implements CommandExecutor, TabCompleter {
 
             if (playerManager.hasRank(player)){
                 targetLevel = playerManager.getRank(player).getLevel();
-                prefixBefore = playerManager.getRank(player).getTagSerialized();
+                prefixBefore = playerManager.getRank(player).getPrefixSerialized();
                 prefixBefore = prefixBefore + ChatColor.RESET;
             }
             else{
