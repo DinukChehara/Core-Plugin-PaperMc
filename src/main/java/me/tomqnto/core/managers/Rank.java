@@ -1,41 +1,45 @@
 package me.tomqnto.core.managers;
 
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 
 public enum Rank {
 
-    OWNER("Owner", NamedTextColor.GOLD, NamedTextColor.YELLOW, true, false, 5),
-    ADMIN("Admin", NamedTextColor.DARK_RED, NamedTextColor.RED, true, false, 4),
-    MOD("Mod", NamedTextColor.DARK_GREEN, NamedTextColor.GREEN, true, false, 3),
-    HELPER("Helper", NamedTextColor.DARK_AQUA, NamedTextColor.AQUA, true, false, 2),
-    YOUTUBE("§cYou§rtube", NamedTextColor.WHITE, NamedTextColor.WHITE, true, false, 1),
-    DEFAULT("Default", NamedTextColor.GRAY, NamedTextColor.WHITE, false, false, 1);
+    OWNER("<gold>Owner", NamedTextColor.YELLOW, 5),
+    ADMIN("<dark_red>Admin", NamedTextColor.RED, 4),
+    MOD("<dark_green>Mod", NamedTextColor.GREEN, 3),
+    HELPER("<dark_aqua>Helper", NamedTextColor.AQUA, 2),
+    MEDIA("<dark_purple>Media", NamedTextColor.LIGHT_PURPLE, 1),
+    MVP("<dark_blue>MVP", NamedTextColor.BLUE, 1),
+    DEFAULT("<gray>Default", NamedTextColor.WHITE, 1);
 
 
-    private final String displayName;
-    private final NamedTextColor nameColor;
+    private final String tag;
     private final NamedTextColor chatColor;
-    private final boolean tagBold, italic;
     private final int level;
 
-    Rank(String displayName, NamedTextColor nameColor, NamedTextColor chatColor, boolean tagBold, boolean italic, int level) {
-        this.displayName = displayName;
-        this.nameColor = nameColor;
+    Rank(String tag, NamedTextColor chatColor,int level) {
+        this.tag = tag;
         this.chatColor = chatColor;
-        this.tagBold = tagBold;
-        this.italic = italic;
         this.level = level;
     }
 
-    public String getDisplayName(){
-        return this.displayName;
+    public String getTag(){
+        return this.tag;
     }
 
-    public NamedTextColor getNameColor() {
-        return this.nameColor;
+    public Component getTagDeserialized(){
+        return MiniMessage.miniMessage().deserialize(this.tag + "<reset>");
+    }
+
+    public String getTagSerialized(){
+
+        LegacyComponentSerializer legacy = LegacyComponentSerializer.legacySection();
+
+        return legacy.serialize(this.getTagDeserialized());
     }
 
     public NamedTextColor getChatColor() {
@@ -50,21 +54,16 @@ public enum Rank {
         return this.level >= compare.level;
     }
 
-    public String getPrefix(){
+    public String getPrefixSerialized(){
 
-        ChatColor tagColor = ChatColor.valueOf(this.getNameColor().toString().toUpperCase());
-        String prefix = tagColor + this.displayName + ChatColor.RESET;
-
-        if (this.tagBold && this.italic)
-            prefix = "§o" + "§l" + prefix;
-        else if (this.tagBold)
-            prefix = "§l" + prefix;
-        else if (this.italic)
-            prefix = "§o" + prefix;
-
-        prefix = "§8[" + prefix + "§8]§r";
+        String prefix = this.getTagSerialized();
+        prefix = "§8[§r" + prefix + "§8]§r";
 
         return prefix;
+    }
+
+    public Component getPrefixDeserialized(){
+        return MiniMessage.miniMessage().deserialize("<dark_gray>[</dark_gray>" + this.getTag() + "<reset>" + "<dark_gray>]</dark_gray>");
     }
 
 }

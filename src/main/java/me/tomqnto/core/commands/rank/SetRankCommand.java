@@ -42,16 +42,16 @@ public class SetRankCommand implements CommandExecutor, TabCompleter {
             Rank rank = Rank.valueOf(rankName);
 
             String prefixBefore;
-            String prefixAfter = rank.getPrefix();
+            String prefixAfter = rank.getPrefixSerialized();
             String change;
             prefixAfter = prefixAfter + ChatColor.RESET;
             int senderLevel;
             int targetLevel;
-            String permission = "core.rank." + rank.getDisplayName().toLowerCase();
+            String permission = "core.rank." + rank.getTag().toLowerCase();
 
             if (playerManager.hasRank(player)){
                 targetLevel = playerManager.getRank(player).getLevel();
-                prefixBefore = playerManager.getRank(player).getPrefix();
+                prefixBefore = playerManager.getRank(player).getTagSerialized();
                 prefixBefore = prefixBefore + ChatColor.RESET;
             }
             else{
@@ -99,11 +99,16 @@ public class SetRankCommand implements CommandExecutor, TabCompleter {
 
         if (args.length==2){
 
-            return Arrays.stream(Rank.values()).map(Enum::name).collect(Collectors.toCollection(ArrayList::new));
+            List<String> options = Arrays.stream(Rank.values()).map(Enum::name).collect(Collectors.toCollection(ArrayList::new));
 
-        } else{
-            return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toCollection(ArrayList::new));
-        }
+            return options.stream().filter(option -> option.startsWith(args[1])).collect(Collectors.toList());
+
+        } else if (args.length==1){
+            List<String> playerList = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toCollection(ArrayList::new));
+
+            return playerList.stream().filter(player -> player.startsWith(args[0])).collect(Collectors.toList());
+        } else
+            return List.of();
     }
 }
 

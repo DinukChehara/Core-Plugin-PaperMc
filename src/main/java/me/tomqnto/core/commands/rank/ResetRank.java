@@ -35,9 +35,9 @@ public class ResetRank implements CommandExecutor {
 
         if (playerManager.hasRank(player)){
 
-            String prefixBefore = playerManager.getRank(player).getPrefix();
+            String prefixBefore = playerManager.getRank(player).getPrefixSerialized();
             prefixBefore = prefixBefore + ChatColor.RESET;
-            String change = prefixBefore + " → " + Rank.DEFAULT.getPrefix();
+            String change = prefixBefore + " → " + Rank.DEFAULT.getPrefixSerialized();
             if (sender instanceof Player senderPlayer){
 
                 int senderLevel = playerManager.getRank(senderPlayer).getLevel();

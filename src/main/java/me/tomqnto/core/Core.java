@@ -1,20 +1,16 @@
 package me.tomqnto.core;
 
-import com.comphenix.protocol.ProtocolLib;
 import me.tomqnto.core.commands.auth.LoginCommand;
 import me.tomqnto.core.commands.auth.RegisterCommand;
 import me.tomqnto.core.commands.auth.UnregisterCommand;
 import me.tomqnto.core.commands.rank.ResetRank;
 import me.tomqnto.core.commands.rank.SetRankCommand;
 import me.tomqnto.core.commands.serverState.SetServerStateCommand;
-import me.tomqnto.core.listeners.PlayerLoginListener;
+import me.tomqnto.core.listeners.PlayerListeners;
 import me.tomqnto.core.managers.*;
 import me.tomqnto.core.packets.ProtocolLibHook;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 
 public final class Core extends JavaPlugin {
@@ -49,7 +45,7 @@ public final class Core extends JavaPlugin {
         // registering event listeners
         getServer().getPluginManager().registerEvents(new ChatManager(playerManager), this);
         getServer().getPluginManager().registerEvents(new AuthManager(playerManager), this);
-        getServer().getPluginManager().registerEvents(new PlayerLoginListener(playerManager, serverManager), this);
+        getServer().getPluginManager().registerEvents(new PlayerListeners(playerManager, serverManager), this);
 
         // registering commands
         getCommand("setrank").setExecutor(new SetRankCommand(playerManager));

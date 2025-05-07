@@ -10,7 +10,7 @@ commands:
   setrank:
     usage: /<command> <player>
     description: Sets a player's rank
-    aliases: [sr]
+    aliases: [rank, r]
 
   resetrank:
     usage: /<command> <player>
@@ -32,6 +32,7 @@ commands:
   setstate:
     usage: /<command> <state>
     description: Changes the server state
+    aliases: [state, mode]
 
 permissions:
 

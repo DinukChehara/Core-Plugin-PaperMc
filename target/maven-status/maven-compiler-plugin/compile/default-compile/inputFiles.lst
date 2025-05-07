@@ -5,7 +5,7 @@ C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\co
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\rank\SetRankCommand.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\commands\serverState\SetServerStateCommand.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\Core.java
-C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\listeners\PlayerLoginListener.java
+C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\listeners\PlayerListeners.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\managers\AuthManager.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\managers\ChatManager.java
 C:\Users\Dinuk\Desktop\Spigot Server\plugin dev\Core\src\main\java\me\tomqnto\core\managers\ConfigManager.java

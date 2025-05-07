@@ -25,9 +25,8 @@ public class AuthManager implements Listener {
         this.playerManager = playerManager;
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOW)
     public void onPlayerJoin(PlayerJoinEvent event){
-
         if (!(playerManager.isRegistered(event.getPlayer()))){
             playerManager.setLoggedIn(event.getPlayer(), false);
             PlayerMessage.notRegistered(event.getPlayer(), true, true);
@@ -35,16 +34,21 @@ public class AuthManager implements Listener {
         } else if (playerManager.getPlayerAddress(event.getPlayer())!=null && playerManager.hasAddressChanged(event.getPlayer())){
             PlayerMessage.addressChanged(event.getPlayer());
             PlayerMessage.notLoggedIn(event.getPlayer(), true, true);
+            playerManager.setLoggedIn(event.getPlayer(), false);
             event.getPlayer().sendRichMessage(playerManager.getPlayerAddress(event.getPlayer()) + " now: " + event.getPlayer().getAddress().toString());
 
         } else if (playerManager.getExpiration(event.getPlayer())!=null && playerManager.hasLoginExpired(event.getPlayer())) {
             PlayerMessage.loginExpired(event.getPlayer());
             PlayerMessage.notLoggedIn(event.getPlayer(), true, true);
-        } else{
+            playerManager.setLoggedIn(event.getPlayer(), false);
+
+        } else if (playerManager.isLoggedIn(event.getPlayer())){
             playerManager.setLoggedIn(event.getPlayer(), true);
             Duration duration = Duration.between(Instant.now(), Instant.parse(playerManager.getExpiration(event.getPlayer())));
             String durationString = String.format("%01dh %02dm %02ds", duration.toSeconds()/3600, (duration.toSeconds()%3600)/60, duration.toSeconds()%60);
             event.getPlayer().sendRichMessage("<green>Login session continued. It will expire in <yellow>" + durationString);
+        } else{
+            event.getPlayer().sendRichMessage("<red>An error occurred, rejoin again. If that doesn't work please contact staff");
         }
 
     }

@@ -21,7 +21,7 @@ public class ProtocolLibHook {
             manager.addPacketListener(new PacketAdapter(Core.getInstance(), PacketType.Play.Server.ENTITY_METADATA) {
                 @Override
                 public void onPacketSending(PacketEvent event) {
-                    event.getPlayer().setCustomName(playerManager.getRank(event.getPlayer()).getPrefix() + " " + ChatColor.valueOf(playerManager.getRank(event.getPlayer()).getChatColor().toString().toUpperCase()) + event.getPlayer().getName());
+                    event.getPlayer().setCustomName(playerManager.getRank(event.getPlayer()).getPrefixSerialized() + " " + ChatColor.valueOf(playerManager.getRank(event.getPlayer()).getChatColor().toString().toUpperCase()) + event.getPlayer().getName());
                     event.getPlayer().setCustomNameVisible(true);
                 }
             });

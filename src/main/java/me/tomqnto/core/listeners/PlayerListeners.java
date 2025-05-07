@@ -4,23 +4,26 @@ import me.tomqnto.core.managers.PlayerManager;
 import me.tomqnto.core.managers.ServerManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
-public class PlayerLoginListener implements Listener {
+public class PlayerListeners implements Listener {
 
     private final PlayerManager playerManager;
     private final ServerManager serverManager;
 
-    public PlayerLoginListener(PlayerManager playerManager, ServerManager serverManager) {
+    public PlayerListeners(PlayerManager playerManager, ServerManager serverManager) {
         this.playerManager = playerManager;
         this.serverManager = serverManager;
     }
 
-    @EventHandler
-    public void onPlayerJoin(PlayerLoginEvent event){
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onPlayerLogin(PlayerLoginEvent event){
 
         Player player = event.getPlayer();
         int playerRankLevel = playerManager.getRank(player).getLevel();
@@ -34,6 +37,17 @@ public class PlayerLoginListener implements Listener {
             Component message = MiniMessage.miniMessage().deserialize("<dark_red>You got kicked<br><darK_gray>----------------------------<br>");
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, message.append(serverManager.getState().getKickMessage()));
         }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onPlayerJoin(PlayerJoinEvent event){
+        Component playerName = Component.text(event.getPlayer().getName()).color(playerManager.getRank(event.getPlayer()).getChatColor());
+        String playerNameSerialized = LegacyComponentSerializer.legacySection().serialize(playerName);
+        String rankPrefix = playerManager.getRank(event.getPlayer()).getPrefixSerialized();
+        String message = rankPrefix + " " + playerNameSerialized + "§e joined the server";
+
+        event.setJoinMessage(message);
+
     }
     
 }

@@ -38,21 +38,19 @@ public class ChatManager implements Listener {
 
             if (sourceRank!=null){
 
-                String rankPrefix = sourceRank.getPrefix();
+                Component rankPrefix = sourceRank.getPrefixDeserialized();
                 NamedTextColor chatColor = sourceRank.getChatColor();
-                NamedTextColor tagColor = sourceRank.getNameColor();
 
                 if  (!(viewer instanceof final Player recipient))
                     return message;
 
-                Component rankComponent = Component.text(rankPrefix);
 
                 Component formattedMessage = sourceDisplayName
                         .append(Component.text(" » "))
                         .append(message).color(chatColor);
 
 
-                return rankComponent.append(Component.space()).append(formattedMessage);
+                return rankPrefix.append(Component.space()).append(formattedMessage);
             } else {
                 Component formattedMessage = sourceDisplayName
                         .append(Component.text(" » "))
